@@ -1,14 +1,17 @@
 import { useSelector } from 'react-redux';
-import { selectAll, todosDeleted } from './todosSlice';
-import { useDispatch } from 'react-redux';
+import { filteredTodosSelector, todosDeleted, todosActiveSelected } from './todosSlice';
+// import { useDispatch } from 'react-redux';
+
+import TodosListItem from '../todosListItem/todosListItem';
 
 
 const TodosList = () => {
 
-	const todos = useSelector(selectAll);
-	const dispatch = useDispatch();
+	const todos = useSelector(filteredTodosSelector);
+	// const dispatch = useDispatch();
 
 	const createTodo = (arr) => {
+
 		if (arr.length < 1) {
 			return (
 				<li className="todosList__info">
@@ -17,18 +20,15 @@ const TodosList = () => {
 				</li>
 			)
 		}
-		return arr.map(({name, id}) => {
+
+		return arr.map(({id, ...props}) => {
 			return (
-				<li key={id} className="todosList__item">
-					<p>{name}</p>
-					<button onClick={() => dispatch(todosDeleted(id))}>Delete todo</button>
-				</li>
+				<TodosListItem key={id} id={id} {...props}/>
 			)
 		});
 	}
 
 	const elems = createTodo(todos);
-	console.log(todos)
 
 	return (
 		<ul className="todosList">

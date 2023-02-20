@@ -6,6 +6,7 @@ import { todosAdd } from "../todosList/todosSlice";
 const TodosForm = () => {
 
 	const [todoName, setTodoName] = useState('');
+	const [todoColor, setTodoColor] = useState('');
 
 	const dispatch = useDispatch();
 
@@ -14,7 +15,9 @@ const TodosForm = () => {
 
 		const newTodo = {
 			id: nanoid(4),
-			name: todoName
+			name: todoName,
+			color: todoColor,
+			active: false
 		}
 
 		dispatch(todosAdd(newTodo));
@@ -25,16 +28,28 @@ const TodosForm = () => {
 	return (
 		<form className="border p-4 shadow-lg rounded" onSubmit={onSubmit}>
 			<div className="mb-3">
-				<label htmlFor="name" className="form-label fs-4">Имя нового героя</label>
+				<label htmlFor="name">Добавить новую задачу?</label>
 				<input
 					required
 					type="text"
 					name="name"
-					className="form-control"
 					id="name"
 					value={todoName}
 					onChange={(e) => setTodoName(e.target.value)}
-					placeholder="Как меня зовут?" />
+					placeholder="Мы сделаем..." />
+				<label htmlFor="color"></label>
+				<select
+					required
+					name="color"
+					id="color"
+					value={todoColor}
+					onChange={(e) => setTodoColor(e.target.value)} >
+					<option value="none">Без цвета</option>
+					<option value="red">Красный</option>
+					<option value="green">Зеленый</option>
+					<option value="blue">Синий</option>
+					<option value="black">Черный</option>
+				</select>
 			</div>
 
 			<button type="submit" className="btn btn-primary">Создать</button>
