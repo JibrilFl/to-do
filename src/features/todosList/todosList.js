@@ -1,29 +1,34 @@
-import { useSelector } from 'react-redux';
-import { filteredTodosSelector, todosDeleted, todosActiveSelected } from './todosSlice';
-// import { useDispatch } from 'react-redux';
+import { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { filteredTodosSelector, todosDeleted} from './todosSlice';
 
-import TodosListItem from '../todosListItem/todosListItem';
+import TodosListItem from '../todosListItem/TodosListItem';
 
+import './todosList.scss';
 
 const TodosList = () => {
 
+	const dispatch = useDispatch();
+
 	const todos = useSelector(filteredTodosSelector);
-	// const dispatch = useDispatch();
 
-	const createTodo = (arr) => {
+	const onDeleted = useCallback((id) => {
+		dispatch(todosDeleted(id));
+	}, [dispatch]);
 
-		if (arr.length < 1) {
+	const createTodo = (arr) => { 
+
+		if (arr.length === 0) {
 			return (
 				<li className="todosList__info">
-					<h1>Задач пока нема!</h1>
-					<p>Добавьте их срочна</p>
+					<h3>Вы еще не добавили задачи</h3>
 				</li>
 			)
 		}
 
 		return arr.map(({id, ...props}) => {
 			return (
-				<TodosListItem key={id} id={id} {...props}/>
+				<TodosListItem todosDeleted={() => onDeleted(id)} key={id} id={id} {...props}/>
 			)
 		});
 	}
