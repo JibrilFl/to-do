@@ -41,7 +41,7 @@ const TodosForm = () => {
 						id="name"
 						value={todoName}
 						onChange={(e) => setTodoName(e.target.value)}
-						placeholder="Мы сделаем..." />
+						placeholder="Новая задача" />
 				</div>
 				<div className="form__item">
 					<label className="form__item_label" htmlFor="color">Выберите цвет</label>
@@ -56,7 +56,6 @@ const TodosForm = () => {
 						<option value="red">Красный</option>
 						<option value="green">Зеленый</option>
 						<option value="blue">Синий</option>
-						<option value="black">Черный</option>
 					</select>
 				</div>
 			</div>

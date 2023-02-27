@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import './todosFilters.scss';
 
-const arrBtn = ['all', 'red', 'green', 'blue', 'black'];
+const arrBtn = ['all', 'red', 'green', 'blue'];
 const arrActive = ['true', 'false'];
 
 const TodosFilters = () => {
@@ -17,17 +17,38 @@ const TodosFilters = () => {
 			return <h1>Тут ничего нет</h1>
 		}
 
+		
+
+
 		return arr.map((btn, i) => {
 
-			let style = `filters__list_btn filters__list_btn-${btn}`
+			let style = `filters__list_btn filters__list_btn-${btn}`;
+			let name = '';
 
 			if (activeFilter === btn) {
 				style += ' active';
 			}
 
+			switch(btn) {
+				case 'all':
+					name = 'Все';
+					break;
+				case 'red':
+					name = 'Красные';
+					break;
+				case 'green':
+					name = 'Зеленые';
+					break;
+				case 'blue':
+					name = 'Синие';
+					break;
+				default:
+					break;
+			}
+
 			return (
 				<li key={i} className="filters__list">
-					<button className={style} onClick={() => dispatch(filtersSwitching(btn))}>{btn}</button>
+					<button className={style} onClick={() => dispatch(filtersSwitching(btn))}>{name}</button>
 				</li>
 			)
 		})
